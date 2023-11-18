@@ -109,7 +109,7 @@ const Register = () => {
               backgroundImage: `url(${registerbackground})`,
             }}
           >
-            <section style={{ justifyContent: "center" }}>
+            <section style={{ justifyContent: "center", backgroundColor: "black" }}>
               <p
                 ref={errRef}
                 className={errMsg ? "errmsg" : "offscreen"}

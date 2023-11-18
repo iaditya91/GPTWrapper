@@ -72,7 +72,7 @@ const Login = () => {
           backgroundImage: `url(${loginbackground})`,
         }}
       >
-        <section style={{ justifyContent: "center" }}>
+        <section style={{ justifyContent: "center", backgroundColor: "grey" }}>
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
