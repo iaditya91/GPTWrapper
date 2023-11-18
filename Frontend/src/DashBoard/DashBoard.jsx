@@ -1,21 +1,47 @@
-import React from 'react';
-import { useRef, useState, useEffect, useContext } from 'react';
-import Bubble from './Components/Bubble';
+import React from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import Bubble from "./Components/Bubble";
+import logo192 from "../images/logo192.png";
 
 const DashBoard = () => {
-    // const [bubbles, setBubbles] = useState(Array.from({ length: 6 }, (_, index) => index + 1));
- const bubbles = [['Generate Question Paper', '/generateQuestionPaper'], ['Page2', '/page2'], ['Page3', '/page3'], ['Page4', '/page4'], ['Page5', '/page5'], ['Page6', '/page6']]; // Assuming you have 6 bubbles
-  
+  // const [bubbles, setBubbles] = useState(Array.from({ length: 6 }, (_, index) => index + 1));
+  const bubbles = [
+    ["Generate Question Paper", "/generateQuestionPaper", logo192],
+    ["Generate Quiz", "/page2", logo192],
+    ["Summery", "/page3", logo192],
+    ["Answers", "/page4", logo192],
+    ["Facts", "/page5", logo192],
+    ["Talk With Book", "/page6", logo192],
+  ];
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <div style={{ display: 'flex', gap: '90px' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <div style={{ display: "flex", gap: "90px" }}>
         {bubbles.slice(0, 4).map((bubble, index) => (
-          <Bubble key={index} text={`${bubble[0]}`} to={`${bubble[1]}`} />
+          <Bubble
+            key={index}
+            text={`${bubble[0]}`}
+            to={`${bubble[1]}`}
+            imageSrc={`${bubble[2]}`}
+          />
         ))}
       </div>
-     {/* <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
+      {/* <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
         {bubbles.slice(4).map((bubble, index) => (
-          <Bubble key={index + 4} text={`Bubble ${bubble}`} />
+                    <Bubble
+                    key={index}
+                    text={`${bubble[0]}`}
+                    to={`${bubble[1]}`}
+                    imageSrc={`${bubble[2]}`}
+                  />
         ))} 
       </div> */}
     </div>
