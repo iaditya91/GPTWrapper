@@ -8,7 +8,7 @@ const DashBoard = () => {
   
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <div style={{ display: 'flex', gap: '40px' }}>
+      <div style={{ display: 'flex', gap: '90px' }}>
         {bubbles.slice(0, 4).map((bubble, index) => (
           <Bubble key={index} text={`${bubble[0]}`} to={`${bubble[1]}`} />
         ))}

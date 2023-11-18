@@ -5,8 +5,11 @@ import Typography from '@mui/material/Typography';
 
 const Bubble = ({ text, to }) => {
   return (
-    <>
-    <div style={{ textAlign: 'center' }}>
+    <div style ={{
+      display: 'grid',
+      placeItems: 'center',
+      height: '10vh',
+    }}>
     <Paper
       component={Link}
       to={to}
@@ -14,21 +17,18 @@ const Bubble = ({ text, to }) => {
         width: 200,
         height: 200,
         borderRadius: '70%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         backgroundColor: '#2196f3', 
-        color: '#fff', // You can customize the text color
-      }}
-      elevation={3}
-    >
-    
+        padding: '20px',
+      }}>
     </Paper>
-    </div>
-     <Typography variant="body1" style={{ textAlign: 'center', marginTop: '8px' }}>
-     {text}
-   </Typography>
-   </>
+    
+     <Typography variant="body1" 
+      style={{ 
+        padding: '20px',
+        }}>
+        {text}
+      </Typography>
+   </div>
   );
 };
 
