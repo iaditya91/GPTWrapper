@@ -17,11 +17,11 @@ const DashBoard = () => {
   return (
     <div
       style={{
-        display: "flex",
+        display: "grid",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
+        height: "60vh",
       }}
     >
       <div style={{ display: "flex", gap: "90px" }}>
@@ -34,16 +34,16 @@ const DashBoard = () => {
           />
         ))}
       </div>
-      {/* <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-        {bubbles.slice(4).map((bubble, index) => (
-                    <Bubble
-                    key={index}
-                    text={`${bubble[0]}`}
-                    to={`${bubble[1]}`}
-                    imageSrc={`${bubble[2]}`}
-                  />
+      <div style={{ display: 'flex', gap: '140px', justifyContent: 'center'}}>
+        {bubbles.slice(4, 8).map((bubble, index) => (
+            <Bubble
+            key={index}
+            text={`${bubble[0]}`}
+            to={`${bubble[1]}`}
+            imageSrc={`${bubble[2]}`}
+            />
         ))} 
-      </div> */}
+      </div>
     </div>
   );
 };
