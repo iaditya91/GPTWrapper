@@ -1,8 +1,10 @@
 import React from 'react';
 import { useRef, useState, useEffect, useContext } from 'react';
-import './MyForm.css';
+import '../../css/MyForm.css';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Page1 = () => {
+  const history = useHistory();
     const [formData, setFormData] = useState({
         chapterNumber: null,
         file: null,
@@ -27,7 +29,7 @@ const Page1 = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
-        // You can perform actions with the form data here, like making an API request
+        history.push('/output');
       };
     
       return (

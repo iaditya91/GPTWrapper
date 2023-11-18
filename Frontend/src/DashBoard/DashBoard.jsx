@@ -4,7 +4,6 @@ import Bubble from "./Components/Bubble";
 import logo192 from "../images/logo192.png";
 
 const DashBoard = () => {
-  // const [bubbles, setBubbles] = useState(Array.from({ length: 6 }, (_, index) => index + 1));
   const bubbles = [
     ["Generate Question Paper", "/generateQuestionPaper", logo192],
     ["Generate Quiz", "/page2", logo192],
@@ -34,15 +33,15 @@ const DashBoard = () => {
           />
         ))}
       </div>
-      <div style={{ display: 'flex', gap: '140px', justifyContent: 'center'}}>
+      <div style={{ display: "flex", gap: "140px", justifyContent: "center" }}>
         {bubbles.slice(4, 8).map((bubble, index) => (
-            <Bubble
+          <Bubble
             key={index}
             text={`${bubble[0]}`}
             to={`${bubble[1]}`}
             imageSrc={`${bubble[2]}`}
-            />
-        ))} 
+          />
+        ))}
       </div>
     </div>
   );
