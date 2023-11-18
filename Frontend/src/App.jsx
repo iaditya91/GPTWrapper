@@ -10,12 +10,14 @@ import Page6 from "./Pages/Page6/Page6";
 import OutputPage from "./Pages/OutputPage";
 import Login from "./Authentication/Login";
 import Register from "./Authentication/Register";
+import Home from "./Home";
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={Login} />
+        <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Register} />
         <Route path="/dashboard" exact component={DashBoard} />
         <Route path="/generateQuestionPaper" component={Page1} />

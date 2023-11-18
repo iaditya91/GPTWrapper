@@ -2,6 +2,7 @@ import React from "react";
 import { useRef, useState, useEffect, useContext } from "react";
 import Bubble from "./Components/Bubble";
 import logo192 from "../images/logo192.png";
+import TopBar from "./Components/TopBar";
 
 const DashBoard = () => {
   const bubbles = [
@@ -14,6 +15,8 @@ const DashBoard = () => {
   ];
 
   return (
+    <>
+    <TopBar/>
     <div
       style={{
         display: "grid",
@@ -44,6 +47,7 @@ const DashBoard = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

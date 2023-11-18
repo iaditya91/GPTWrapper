@@ -70,7 +70,7 @@ const Register = () => {
       // );
       // // TODO: remove console.logs before deployment
       // console.log(JSON.stringify(response?.data));
-      history.push("/");
+      history.push("/login");
       //console.log(JSON.stringify(response))
       setSuccess(true);
       //clear state and controlled inputs
@@ -95,7 +95,7 @@ const Register = () => {
         <section>
           <h1>Success!</h1>
           <p>
-            <a href="/">Sign In</a>
+            <a href="/login">Sign In</a>
           </p>
         </section>
       ) : (
@@ -246,7 +246,7 @@ const Register = () => {
                 <br />
                 <span className="line">
                   {/*put router link here*/}
-                  <a href="/">Sign In</a>
+                  <a href="/login">Sign In</a>
                 </span>
               </p>
             </section>
