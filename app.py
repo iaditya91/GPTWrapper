@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 # settings = Settings()
 # openai.api_key = settings.OPENAI_API_KEY
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
