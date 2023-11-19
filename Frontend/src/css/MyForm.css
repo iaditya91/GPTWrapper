@@ -1,0 +1,13 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30%;
+    margin-right:30%;
+    height: 100vh; /* Adjust the height as needed */
+  }
+  
+  .my-form {
+    /* Add any additional styling for your form here */
+  }
+  
