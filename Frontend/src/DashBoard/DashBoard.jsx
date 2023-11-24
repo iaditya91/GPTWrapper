@@ -5,12 +5,13 @@ import logo192 from "../images/logo192.png";
 import AuthContext from "../Authentication/context/AuthProvider";
 import TopBar from "./Components/TopBar";
 
+
 const DashBoard = () => {
   const { auth } = useContext(AuthContext);
   let bubbles = []
   if(auth.role === "student"){
     bubbles = [
-        ["Generate Quiz", "/page2", logo192],
+        ["Generate Quiz", "/generateQuizForm", logo192],
         ["FlashCards", "/page3", logo192],
         ["Find Interconnection", "/page4", logo192],
         ["Topic Exploration", "/page5", logo192],
@@ -18,9 +19,9 @@ const DashBoard = () => {
       ]
   } else if(auth.role ==="teacher") {
     bubbles = [
-      ["Generate Question Paper", "/generateQuestionPaper", logo192],
+      ["Generate Question Paper", "/generateQuestions", logo192],
       ["Generate Answers", "/page2", logo192],
-      ["Generate Quiz", "/page3", logo192],
+      ["Generate Quiz", "/generateQuizForm", logo192],
       ["Generate Assignment", "/page4", logo192],
       ["Start Exam to Students", "/page5", logo192],
       ["Teaching Preperation", "/page6", logo192],
@@ -28,24 +29,14 @@ const DashBoard = () => {
   } else if(auth === "admin"){
     bubbles = []
   } else {
-    bubbles = []
+    bubbles = [
+      ["Generate Quiz", "/generateQuizForm", logo192],
+      ["FlashCards", "/page3", logo192],
+      ["Find Interconnection", "/page4", logo192],
+      ["Topic Exploration", "/page5", logo192],
+      ["Talk With Book", "/page6", logo192],
+    ]
   }
-
-  // auth.roles.contains("user")? bubbles = [
-  //   ["Generate Question Paper", "/generateQuestionPaper", logo192],
-  //   ["Generate Quiz", "/page2", logo192],
-  //   ["Summery", "/page3", logo192],
-  //   ["Answers", "/page4", logo192],
-  //   ["Facts", "/page5", logo192],
-  //   ["Talk With Book", "/page6", logo192],
-  // ]: bubbles = [
-  //   ["Generate Question Paper", "/generateQuestionPaper", logo192],
-  //   ["Generate Quiz", "/page2", logo192],
-  //   ["Summery", "/page3", logo192],
-  //   ["Answers", "/page4", logo192],
-  //   ["Facts", "/page5", logo192],
-  //   ["Talk With Book", "/page6", logo192],
-  // ];
 
   return (
     <>

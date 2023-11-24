@@ -31,20 +31,19 @@ const Login = () => {
 
     try {
       console.log( JSON.stringify({ user, pwd }));
-      const testres = await axios.get("/hello");
-      console.log(testres);
-      const response = await axios.post(LOGIN_URL, JSON.stringify({ user, pwd }), {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': '*/*',
-          'Connection': 'keep-alive',
-        }
-      });
-      console.log(JSON.stringify(response?.data));
-      console.log(JSON.stringify(response));
-      const accessToken = response?.data?.access_token;
-      const role = response?.data?.role;
-      setAuth({ user, pwd, role, accessToken });
+      // const response = await axios.post(LOGIN_URL, JSON.stringify({ user, pwd }), {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Accept': '*/*',
+      //     'Connection': 'keep-alive',
+      //   }
+      // });
+      // console.log(JSON.stringify(response?.data));
+      // console.log(JSON.stringify(response));
+      // const accessToken = response?.data?.access_token;
+      // const role = response?.data?.role;
+      // setAuth({ user, pwd, role, accessToken });
+      setAuth({ user, pwd, "role":"student", "accessToken":"token" });
       console.log("auth in login: ", auth)
       setUser("");
       setPwd("");

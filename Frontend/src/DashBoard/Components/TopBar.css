@@ -1,0 +1,11 @@
+.topbar__barContent {
+    height: 54px;
+    background-color: black;
+    border-bottom: 1px solid grey;
+}
+.topbar_logo{
+    margin-top: 10px;
+}
+.topbar__img {
+    margin:15px 10px;
+}
