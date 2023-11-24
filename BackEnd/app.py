@@ -1,83 +1,109 @@
+from fastapi.security import OAuth2PasswordBearer
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
 import openai
-from fastapi import FastAPI, File, UploadFile, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseSettings
-
-class Settings(BaseSettings):
-    OPENAI_API_KEY: str = 'OPENAI_API_KEY'
-
-    class Config:
-        env_file = '.env'
-
-# settings = Settings()
-# openai.api_key = settings.OPENAI_API_KEY
-
-openai.api_key = "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"
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)
-def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
 
-# @app.post("/upload")
-# async def upload_file(file: UploadFile = File(...)):
-#     # Do something with the uploaded file
-#     # You can save it to a specific directory, process it, etc.
-#     return {"filename": file.filename}
 
-# @app.post("/generate_question_paper")
-# def generate_question_paper(file: UploadFile = File(...)):
-#     # Read the contents of the uploaded file
-#     file_content = file.file.read().decode("utf-8")
 
-#     # Generate questions using OpenAI's API
-#     prompt = f"Generate questions based on the following text: {file_content}"
-#     response = openai.Completion.create(
-#         model="text-davinci-002",
-#         prompt=prompt,
-#         temperature=0.6,
-#         max_tokens=150,
-#     )
 
-#     # Extract the generated questions from the OpenAI response
-#     generated_questions = response.choices[0].text.strip()
+# CORS settings to allow requests from the frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://d7f1-128-197-29-249.ngrok-free.app","https://84.239.48.142:0","https://10.0.0.246:0"],  # Adjust this based on your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-#     return {"generated_questions": generated_questions}
+# Dummy user profile (in-memory storage for simplicity)
+users_db = {
+    "user1": {
+        "user": "user1",
+        "pwd": "password1",
+        "roles": ["user"],
+    },
+    "user2": {
+        "user": "user2",
+        "pwd": "password2",
+        "roles": ["student"],
+    }
+}
 
-from fastapi import HTTPException
+# OAuth2PasswordBearer for handling token authentication
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-@app.post("/generate_question_paper")
-def generate_question_paper(file: UploadFile = File(...)):
-    try:
-        # Read the contents of the uploaded file
-        file_content = file.file.read().decode("utf-8")
-    except UnicodeDecodeError:
-        # Handle decoding error by trying a different encoding
-        try:
-            file_content = file.file.read().decode("latin-1")  # Adjust to the actual encoding if known
-        except UnicodeDecodeError:
-            raise HTTPException(status_code=400, detail="Unable to decode file content.")
-    # print("Mahesh")
-    # Generate questions using OpenAI's API
-    prompt = f"Generate questions based on the following text: {file_content}"
+@app.get("/")
+async def read_root():
+    return {"message": "Hello, this is a test endpoint!"}
+
+
+# Function to authenticate and get the current user
+def get_current_user(token: str = Depends(oauth2_scheme)):
+    if token not in users_db:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return users_db[token]
+
+
+# Login route
+@app.post("/auth")
+async def login(user: str, pwd: str):
+    if user not in users_db or users_db[user]["pwd"] != pwd:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # You may want to use a more secure method to generate tokens in a production environment
+    token = user
+    return {"access_token": token, "token_type": "bearer", "roles": users_db[user]["roles"]}
+
+# Protected route
+@app.get("/protected")
+async def protected_route(current_user: dict = Depends(get_current_user)):
+    return {"message": "You have access to this protected route!", "user": current_user}
+
+
+####code for genereting questions from uploaded text
+
+
+# OAuth2PasswordBearer for handling token authentication
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+# Your OpenAI API key
+openai.api_key = "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"
+
+
+# Route to handle textbook content and generate questions
+@app.post("/generate_questions")
+async def generate_questions(
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user),
+):
+    # Your code to process the uploaded textbook content
+    # You may want to save the file to a storage system and extract text from it
+    # For simplicity, we'll assume the file contains text
+    content_text = file.file.read().decode("utf-8")
+    print(content_text)
+    # Your OpenAI prompt for question generation
+    prompt = f"Generate questions from the following text:\n{content_text}"
+
+    # Generate questions using OpenAI
+    questions = generate_questions_using_openai(prompt)
+
+    return {"questions": questions}
+
+
+def generate_questions_using_openai(prompt):
+    # Your code to interact with the OpenAI API for question generation
+    # Example:
     response = openai.Completion.create(
-        model="code-davinci-edit-001",
+        engine="text-davinci-003",
         prompt=prompt,
-        temperature=0.6,
-        max_tokens=150,
+        max_tokens=150
     )
-    # print(response)
-
-    # Extract the generated questions from the OpenAI response
-    generated_questions = response.choices[0].text.strip()
-
-    return {"generated_questions": generated_questions}
-
+    print(response)
+    return response.choices[0].text.strip()
 
 if __name__ == "__main__":
+    import uvicorn
     uvicorn.run('app:app', host="localhost", port=5001, reload=True)
