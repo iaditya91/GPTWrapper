@@ -12,7 +12,7 @@ import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
+const REGISTER_URL = "/signup";
 
 const Register = () => {
   const userRef = useRef();
@@ -22,6 +22,10 @@ const Register = () => {
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
+
+  const [role, setRole] = useState("");
+  const [validRole, setValidRole] = useState(false);
+  const [roleFocus, setRoleFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
@@ -61,15 +65,15 @@ const Register = () => {
       return;
     }
     try {
-      // const response = await axios.post(REGISTER_URL,
-      //     JSON.stringify({ user, pwd }),
-      //     {
-      //         headers: { 'Content-Type': 'application/json' },
-      //         withCredentials: true
-      //     }
-      // );
-      // // TODO: remove console.logs before deployment
-      // console.log(JSON.stringify(response?.data));
+      const response = await axios.post(REGISTER_URL,
+          JSON.stringify({ user, pwd, role }),
+          {
+              headers: { 'Content-Type': 'application/json' },
+              withCredentials: true
+          }
+      );
+      // TODO: remove console.logs before deployment
+      console.log(JSON.stringify(response?.data));
       history.push("/login");
       //console.log(JSON.stringify(response))
       setSuccess(true);
@@ -158,6 +162,14 @@ const Register = () => {
                   <br />
                   Letters, numbers, underscores, hyphens allowed.
                 </p>
+                
+                <label>Role:</label>
+                <label>
+                  <input type="radio" name="role" value="student" onChange={(e)=> setRole(e.target.value)}/> Student
+                </label>
+                <label>
+                  <input type="radio" name="role" value="teacher"  onChange={(e)=> setRole(e.target.value)}/> Teacher
+                </label>
 
                 <label htmlFor="password">
                   Password:

@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DashBoard from "./DashBoard/DashBoard";
-import Page1 from "./Pages/Page1/Page1";
+import GenerateQuestionsOutput from "./Pages/GenerateQuestions/GenerateQuestionsOutput";
+import GenerateQuestions from "./Pages/GenerateQuestions/GenerateQuestions";
 import Page2 from "./Pages/Page2/Page2";
 import Page3 from "./Pages/Page3/Page3";
 import Page4 from "./Pages/Page4/Page4";
@@ -20,7 +21,8 @@ const App = () => {
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Register} />
         <Route path="/dashboard" exact component={DashBoard} />
-        <Route path="/generateQuestionPaper" component={Page1} />
+        <Route path="/generateQuestions" component={GenerateQuestions} />
+        <Route path="/questionsList" component={GenerateQuestionsOutput} />
         <Route path="/page2" component={Page2} />
         <Route path="/page3" component={Page3} />
         <Route path="/page4" component={Page4} />

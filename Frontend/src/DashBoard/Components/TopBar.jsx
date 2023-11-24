@@ -8,17 +8,18 @@ const TopBar = () => {
     const { auth, setAuth } = useContext(AuthContext);
     const history = useHistory();
     console.log("auth: ",auth);
-    const onLogout = true;
-    const textStyle = {margin: "0 10px"};
+    console.log("auth user: ", auth.user)
+    console.log( utils.isObjectEmpty(auth));
+    const textStyle = {margin: "0 5px", height: "45px", justifyContent: "center", textAlign: "center"};
     const logoutHandler = () =>{
         setAuth({});
         history.push("/login");
     }
   return (
-    utils.isObjectNotEmpty(auth)?(
-    <div style = {{position: "fixed",display: "flex", alignItems: "center", justifyContent: "flex-end", marginRight: "1%", backgroundColor:"black"}}>
+    !utils.isObjectEmpty(auth)?(
+    <div style = {{display: "flex", alignItems: "center", justifyContent: "flex-end", marginRight: "1%", backgroundColor:"black"}}>
       <div style = {textStyle}>Welcome {auth.user}!</div>
-      <div style = {{height: "10px", borderLeft: "1px solid #000", margin:"0 10px"}}></div>
+      <div style = {{height: "5px", borderLeft: "1px solid #000", margin:"0 5px"}}></div>
       <button style = {textStyle} onClick={logoutHandler} className="logout-button">Logout</button>
     </div>
     ):

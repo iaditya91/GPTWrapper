@@ -14,8 +14,8 @@ const Bubble = ({ text, to, imageSrc }) => {
       component={Link}
       to={to}
       style={{
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         borderRadius: '70%',
         backgroundColor: '#2196f3', 
         padding: '20px',

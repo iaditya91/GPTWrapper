@@ -5,8 +5,3 @@ export function isObjectEmpty(obj) {
 export function isObjectNotEmpty(obj) {
     return !Object.keys(obj).length === 0;
 }
-
-// modules.export ={
-//     isObjectEmpty,
-//     isObjectNotEmpty
-// }
