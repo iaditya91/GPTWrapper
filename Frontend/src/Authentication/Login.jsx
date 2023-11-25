@@ -9,7 +9,7 @@ import loginbackground from "../images/loginbackground.jpg";
 const Login = () => {
   const LOGIN_URL = "/auth";
   const history = useHistory();
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -30,19 +30,21 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // const response = await axios.post(
-      //   LOGIN_URL,
-      //   JSON.stringify({ user, pwd }),
-      //   {
-      //     headers: { "Content-Type": "application/json" },
-      //     withCredentials: true,
+      console.log( JSON.stringify({ user, pwd }));
+      // const response = await axios.post(LOGIN_URL, JSON.stringify({ user, pwd }), {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Accept': '*/*',
+      //     'Connection': 'keep-alive',
       //   }
-      // );
+      // });
       // console.log(JSON.stringify(response?.data));
-      // //console.log(JSON.stringify(response));
-      // const accessToken = response?.data?.accessToken;
-      // const roles = response?.data?.roles;
-      // setAuth({ user, pwd, roles, accessToken });
+      // console.log(JSON.stringify(response));
+      // const accessToken = response?.data?.access_token;
+      // const role = response?.data?.role;
+      // setAuth({ user, pwd, role, accessToken });
+      setAuth({ user, pwd, "role":"student", "accessToken":"token" });
+      console.log("auth in login: ", auth)
       setUser("");
       setPwd("");
       setSuccess(true);

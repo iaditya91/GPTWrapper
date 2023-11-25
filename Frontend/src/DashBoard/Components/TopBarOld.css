@@ -1,0 +1,5 @@
+.navbar__barContent {
+    height: 50px;
+    background-color: black;
+    border-bottom: 1px solid grey;
+}
