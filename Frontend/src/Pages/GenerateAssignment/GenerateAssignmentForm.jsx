@@ -7,7 +7,7 @@ import axios from "../../api/axios";
 import AuthContext from "../../Authentication/context/AuthProvider";
 import {Spinner} from "../../DashBoard/Components/Spinner";
 
-const GenerateQuizForm = () => {
+const GenerateAssignmentForm = () => {
   const GENERATE_QUESTIONS_URL = "/generate_quiz_sample";
   const history = useHistory();
   const { auth } = useContext(AuthContext);
@@ -146,4 +146,4 @@ const GenerateQuizForm = () => {
   );
 };
 
-export default GenerateQuizForm;
+export default GenerateAssignmentForm;

@@ -12,30 +12,24 @@ const DashBoard = () => {
   if(auth.role === "student"){
     bubbles = [
         ["Generate Quiz", "/generateQuizForm", logo192],
-        ["FlashCards", "/page3", logo192],
-        ["Find Interconnection", "/page4", logo192],
-        ["Topic Exploration", "/page5", logo192],
-        ["Talk With Book", "/page6", logo192],
+        ["FlashCards", "/GenerateFlashCards", logo192],
+        ["Find Interconnection", "/FindInterconnectionForm", logo192],
+        ["Topic Exploration", "/GenerateTopics", logo192],
+        ["Talk With Book", "/TalkWithBook", logo192],
+        ["Career MindMap", "/CareerMindMap", logo192]
       ]
   } else if(auth.role ==="teacher") {
     bubbles = [
       ["Generate Question Paper", "/generateQuestions", logo192],
-      ["Generate Answers", "/page2", logo192],
+      ["Questions Repository", "/QuestionsRepository", logo192],
       ["Generate Quiz", "/generateQuizForm", logo192],
-      ["Generate Assignment", "/page4", logo192],
-      ["Start Exam to Students", "/page5", logo192],
-      ["Teaching Preperation", "/page6", logo192],
+      ["Generate Assignment", "/GenerateAssignmentForm", logo192],
+      ["Teaching Preperation", "/TeachingPreperationForm", logo192],
     ]
   } else if(auth === "admin"){
     bubbles = []
   } else {
-    bubbles = [
-      ["Generate Quiz", "/generateQuizForm", logo192],
-      ["FlashCards", "/page3", logo192],
-      ["Find Interconnection", "/page4", logo192],
-      ["Topic Exploration", "/page5", logo192],
-      ["Talk With Book", "/page6", logo192],
-    ]
+    bubbles = []
   }
 
   return (
