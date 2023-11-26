@@ -102,7 +102,8 @@ const GenerateQuestionsOutput = () => {
               </div>
             ))}
 
-          <Button onClick={handleDownloadPaper}>Download Paper</Button>
+          <Button variant="contained" onClick={handleDownloadPaper}>Download Paper</Button>
+          <Button variant="contained" style={{marginLeft: "30px"}} onClick={handleDownloadPaper}>Save Paper</Button>
         </div>
       )}
     </>

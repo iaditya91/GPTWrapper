@@ -60,6 +60,16 @@ const TopBar = () => {
     setNotificationMenuAnchorEl(null);
   };
 
+  const handleAccountProfileClick = () => {
+    history.push("/profile");
+    setProfileMenuAnchorEl(null);
+  };
+
+  const handleAccountChatClick = () => {
+    history.push("/chat");
+    setProfileMenuAnchorEl(null);
+  };
+
   return (
     <>
       <div className="topbar__barContent">
@@ -135,13 +145,13 @@ const TopBar = () => {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem onClick={handleProfileClose}>
+          <MenuItem onClick={handleAccountProfileClick}>
             <ListItemIcon>
               <AccountCircleIcon fontSize="small" />
             </ListItemIcon>
             Profile
           </MenuItem>
-          <MenuItem onClick={handleProfileClose}>
+          <MenuItem onClick={handleAccountChatClick}>
             <ListItemIcon>
               <ChatIcon fontSize="small" />
             </ListItemIcon>

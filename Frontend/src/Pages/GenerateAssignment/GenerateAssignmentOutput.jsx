@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import axios from "../../api/axios";
 import { Spinner } from "../../DashBoard/Components/Spinner";
 
-const GenerateQuizOutput = () => {
+const GenerateAssignmentOutput = () => {
   const SEND_QUIZ_URL = "/send_quiz";
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -132,4 +132,4 @@ const GenerateQuizOutput = () => {
   );
 };
 
-export default GenerateQuizOutput;
+export default GenerateAssignmentOutput;
