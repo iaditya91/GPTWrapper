@@ -1,7 +1,8 @@
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, File, UploadFile, Depends, HTTPException
-import openai
+from fastapi import FastAPI, File, UploadFile, Depends, HTTPException,Request
+import openai,json, uvicorn,asyncio
+from openai import OpenAI
 from pydantic import BaseModel
 import jwt
 from datetime import datetime, timedelta
@@ -17,7 +18,7 @@ ALGORITHM = "HS256"
 # CORS settings to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://2b8e-2601-19b-b00-26d0-c4d8-40e7-12b1-7402.ngrok-free.app:3000","https://84.239.48.142:0","https://10.0.0.246:0","2601:8c:4302:45e0:8d1a:45aa:746a:6f77"],  # Adjust this based on your frontend URL
+    allow_origins=["https://8bba-2601-19b-b00-26d0-d80c-2fa3-a2b7-5e4.ngrok-free.app:3000","https://84.239.48.142:0","https://10.0.0.246:0","2601:8c:4302:45e0:8d1a:45aa:746a:6f77"],  # Adjust this based on your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -121,7 +122,7 @@ async def protected_route(current_user: dict = Depends(get_current_user)):
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Your OpenAI API key
-openai.api_key = "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"
+#openai.api_key = "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"
 
 
 # Route to handle textbook content and generate questions
@@ -143,43 +144,64 @@ async def generate_questions(
 
     return {"questions": questions}
 
+import asyncio
+
+
+
+async def generate_questions_using_openai(prompt, delay_seconds=2):
+    print("prompt is :" f'{prompt}')
+    # Your code to interact with the OpenAI API for question generation
+    client = OpenAI(
+    # defaults to os.environ.get("OPENAI_API_KEY")
+    #Old api_key="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",
+    api_key="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"
+)
+    gpt_query = "Give me a list of important questions from this :" + str(prompt)
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+                {"role": "user", "content": gpt_query}
+        ],
+    temperature=0,
+    )
+    generated_questions = response.choices[0].message.content.strip()
+    # print(generated_questions)
+    return generated_questions
+
 
 class GenerateData(BaseModel):
-    chapter_from: int
-    chapter_to: int
-    paper_name: str
+    chapterfrom: int
+    chapterto: int
+    papername: str
     token: str
 
-@app.post("/generate_questions_sample")
-async def generate_questions(data: GenerateData):#, textbook: UploadFile = File(...)):
-    print(data)
-
+@app.post("/upload_textbook")
+async def upload_textbook(textbook: UploadFile = File(...)):
     # Your code to process the uploaded textbook content
-    # For simplicity, we'll assume the file contains text
-    # #content_text = textbook  # textbook.file.read().decode("utf-8")
-    # print(content_text)
-    
-    # # Your OpenAI prompt for question generation
-    prompt = f"Generate questions from the following text from chapter {data.chapter_from} to chapter {data.chapter_to}:\n{data.chapter_to}"
+    content_text = textbook.file.read()#.decode("utf-8")
+    #printing the text book content
+    ##print("TextBook Content is :" f'{content_text}')
+    # Your OpenAI prompt for question generation
+    prompt = content_text
 
-    # Generate questions using OpenAI
-    # questions = generate_questions_using_openai(prompt)
+    # Generate questions using OpenAI with delay
+    questions_result = await generate_questions_using_openai(prompt)
 
-    return {"questions": ["what is your name", "how's it going"]}
+    return {"questions": questions_result}    
 
+@app.post("/process_query_data")
+async def process_query_data(request: Request):
+    try:
+        data_str = await request.body()
+        data_dict = json.loads(data_str)
+        print(data_dict)
+        # Your existing code to process the JSON string
+        # ...
 
+        return {"status": "success", "data": data_dict}
+    except json.JSONDecodeError:
+        return {"error": "Invalid JSON format in the provided data_str"}
 
-def generate_questions_using_openai(prompt):
-    # Your code to interact with the OpenAI API for question generation
-    # Example:
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=150
-    )
-    print(response)
-    return response.choices[0].text.strip()
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run('app:app', host="localhost", port=5001, reload=True)
