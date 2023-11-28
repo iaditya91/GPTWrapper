@@ -43,7 +43,7 @@ const Login = () => {
       // const accessToken = response?.data?.access_token;
       // const role = response?.data?.role;
       // setAuth({ user, pwd, role, accessToken });
-      setAuth({ user, pwd, "role":"teacher", "accessToken":"token" });
+      setAuth({ user, pwd, "role":"student", "accessToken":"token" });
       console.log("auth in login: ", auth)
       setUser("");
       setPwd("");

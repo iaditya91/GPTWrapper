@@ -8,7 +8,7 @@ import AuthContext from "../../Authentication/context/AuthProvider";
 import {Spinner} from "../../DashBoard/Components/Spinner";
 
 const GenerateAssignmentForm = () => {
-  const GENERATE_QUESTIONS_URL = "/generate_quiz_sample";
+  const GENERATE_QUESTIONS_URL = "/generate_assignment_sample";
   const history = useHistory();
   const { auth } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,7 @@ const GenerateAssignmentForm = () => {
       // );
       // setLoading(false);
       const data = {
-        paperName: "Paper Name",
+        paperName: "Assignment Name",
         questions: [
           {
             id: 1,
@@ -70,14 +70,14 @@ const GenerateAssignmentForm = () => {
         ],
       };
       history.push({
-        pathname: "/generateQuizOutput", 
+        pathname: "/generateAssignmentOutput", 
         state: data,
       });
     } catch (err) {
       setLoading(false);
       //throw new Error(err);
     }
-    //history.push("/generateQuizOutput");
+    //history.push("/generateAssignmentOutput");
   };
 
   return (
@@ -97,15 +97,15 @@ const GenerateAssignmentForm = () => {
           }}
         >
           <section style={{ justifyContent: "center" }}>
-            <h1 style={{ color: "black" }}>Generate Quiz</h1>
+            <h1 style={{ color: "black" }}>Generate Assignment</h1>
             <br />
             <p style={{ color: "black" }}>
               Upload the Text Book and mention the chapter number to Generate
-              Quiz
+              Assignment
             </p>
             <form onSubmit={handleSubmit} className="my-form">
               <label>
-                Quiz Name:
+                Assignment Name:
                 <input
                   type="text"
                   name="paperName"
@@ -137,7 +137,7 @@ const GenerateAssignmentForm = () => {
               <label>TextBook:</label>
               <input type="file" name="file" onChange={handleFileChange} />
               <br />
-              <button type="submit">Generate Quiz Questions</button>
+              <button type="submit">Generate Assignment Questions</button>
             </form>
           </section>
         </div>
