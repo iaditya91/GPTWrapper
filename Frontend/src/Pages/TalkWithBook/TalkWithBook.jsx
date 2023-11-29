@@ -49,7 +49,8 @@ const TalkWithBook = () => {
     <>
       <TopBar />
       <>
-        <div className={"App html body"}>
+        <div className="app html">
+          {/* <div style={{display:"flex", minHeight: "100vh"}}> */}
           <div className="sideBar">
             <div className="upperSide">
               <div className="upperSideTop">
@@ -70,11 +71,11 @@ const TalkWithBook = () => {
               <div className="upperSideBottom">
                 <button className="query">
                   <img src={msgIcon} alt="Query" />
-                  What is Programming ?
+                  How to chat with me ?
                 </button>
                 <button className="query">
                   <img src={msgIcon} alt="Query" />
-                  How to use abc ?
+                  Tips for best responses ?
                 </button>
               </div>
             </div>
