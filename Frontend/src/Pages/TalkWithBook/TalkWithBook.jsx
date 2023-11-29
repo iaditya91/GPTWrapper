@@ -121,7 +121,7 @@ const TalkWithBook = () => {
                   <img src={sendBtn} alt="Send" />
                 </button>
               </div>
-              <p>chatgpt may provide incorrect results</p>
+              {/* <p>chatgpt may provide incorrect results</p> */}
             </div>
           </div>
         </div>

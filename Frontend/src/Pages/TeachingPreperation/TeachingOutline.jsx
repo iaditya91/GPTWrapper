@@ -21,7 +21,7 @@ const TeachingOutline = () => {
   }
 
   const Demo = styled("div")(({ theme }) => ({
-    backgroundColor: "grey",
+    backgroundColor: "white",
     // backgroundColor: theme.palette.background.paper,
   }));
 
@@ -44,24 +44,24 @@ const TeachingOutline = () => {
     );
   };
   return (
-    <>
+    <div style={{backgroundColor: "lightgreen", minHeight: "100vh",}}>
       <TopBar />
-      <h1>Teaching Outline</h1>
-      <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+      <h1 style={{color:"black"}}>Teaching Outline</h1>
+      <Typography sx={{ mt: 4, mb: 2 }} style={{color:"black"}} variant="h6" component="div">
         Topic Headlines
       </Typography>
       <GenerateList />
 
-      <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+      <Typography sx={{ mt: 4, mb: 2 }} style={{color:"black"}} variant="h6" component="div">
         Topic Relation with other fields
       </Typography>
       <GenerateList />
 
-      <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+      <Typography sx={{ mt: 4, mb: 2 }} style={{color:"black"}} variant="h6" component="div">
         Topic Examples
       </Typography>
       <GenerateList />
-    </>
+    </div>
   );
 };
 

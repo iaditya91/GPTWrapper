@@ -8,68 +8,68 @@ const CareerMindMap = () => {
   const careerProgressData = {
     name: "Career Progression",
     children: [
-      {
-        name: "Education",
-        children: [
-          {
-            name: "Elementary School",
-            children: [
-              { name: "1st Grade" },
-              { name: "2nd Grade" },
-              // ... other grades
-            ],
-          },
-          {
-            name: "Middle School",
-            children: [
-              { name: "6th Grade" },
-              { name: "7th Grade" },
-              // ... other grades
-            ],
-          },
-          {
-            name: "High School",
-            children: [
-              { name: "9th Grade" },
-              { name: "10th Grade" },
-              // ... other grades
-            ],
-          },
-          {
-            name: "College",
-            children: [
-              { name: "Freshman Year" },
-              { name: "Sophomore Year" },
-              // ... other years
-            ],
-          },
-          {
-            name: "University",
-            children: [
-              { name: "Bachelor's Degree" },
-              { name: "Master's Degree" },
-              // ... other degrees
-              {
-                name: "Ph.D.",
-                children: [
-                  { name: "Ph.D. Research" },
-                  { name: "Dissertation Defense" },
-                  // ... other Ph.D. stages
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "Skills Development",
-        children: [
-          { name: "Programming" },
-          { name: "Communication" },
-          { name: "Teamwork" },
-          // ... other skills
-        ],
-      },
+      // {
+      //   name: "Education",
+      //   children: [
+      //     {
+      //       name: "Elementary School",
+      //       children: [
+      //         { name: "1st Grade" },
+      //         { name: "2nd Grade" },
+      //         // ... other grades
+      //       ],
+      //     },
+      //     {
+      //       name: "Middle School",
+      //       children: [
+      //         { name: "6th Grade" },
+      //         { name: "7th Grade" },
+      //         // ... other grades
+      //       ],
+      //     },
+      //     {
+      //       name: "High School",
+      //       children: [
+      //         { name: "9th Grade" },
+      //         { name: "10th Grade" },
+      //         // ... other grades
+      //       ],
+      //     },
+      //     {
+      //       name: "College",
+      //       children: [
+      //         { name: "Freshman Year" },
+      //         { name: "Sophomore Year" },
+      //         // ... other years
+      //       ],
+      //     },
+      //     {
+      //       name: "University",
+      //       children: [
+      //         { name: "Bachelor's Degree" },
+      //         { name: "Master's Degree" },
+      //         // ... other degrees
+      //         {
+      //           name: "Ph.D.",
+      //           children: [
+      //             { name: "Ph.D. Research" },
+      //             { name: "Dissertation Defense" },
+      //             // ... other Ph.D. stages
+      //           ],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Skills Development",
+      //   children: [
+      //     { name: "Programming" },
+      //     { name: "Communication" },
+      //     { name: "Teamwork" },
+      //     // ... other skills
+      //   ],
+      // },
       {
         name: "Professional Experience",
         children: [
@@ -131,7 +131,7 @@ const CareerMindMap = () => {
   return (
     <>
       <TopBar />
-      <div style={{ backgroundColor: "grey", width: "100vw", height: "100vh" }}>
+      <div style={{ backgroundColor: "white", width: "100vw", height: "100vh" }}>
         <div style={{ width: "100vw", height: "100vh" }}>
           <Tree data={careerProgressData} />
         </div>

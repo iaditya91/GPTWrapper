@@ -5,9 +5,9 @@ import styles from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <>
+    <div style={{backgroundColor:"white", minHeight:"100vh"}}>
       <TopBar />
-      <>
+      <div >
         <div style={{ marginTop: "100px" }}>
           <div class="container mt-3">
             <div class="card p-3 text-center">
@@ -99,8 +99,8 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      </>
-    </>
+      </div>
+    </div>
   );
 };
 

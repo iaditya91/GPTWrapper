@@ -92,6 +92,7 @@ const GenerateFlashCards = () => {
               // height: "90vh",
               // marginRight: "1%",
               backgroundColor: "lightgreen",
+            minHeight: "90vh",
             }}
           >
             <section style={{ justifyContent: "center" }}>
