@@ -4,3 +4,4 @@
 # pip3 install python-multipart
 # pip3 install --upgrade openai
 # pip3 install -U fastapi[all]
+# pip3 install PyPDF2

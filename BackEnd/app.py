@@ -4,10 +4,11 @@ from fastapi import FastAPI, File, UploadFile, Depends, HTTPException,Request
 import openai,json, uvicorn,asyncio
 from openai import OpenAI
 from pydantic import BaseModel
+from PyPDF2 import PdfReader
 import jwt
 from datetime import datetime, timedelta
 from passlib.hash import bcrypt  # Install passlib with: pip install passlib
-
+import fastapi
 app = FastAPI()
 
 # Assuming you have a secret key for JWT signing
@@ -18,7 +19,7 @@ ALGORITHM = "HS256"
 # CORS settings to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://8bba-2601-19b-b00-26d0-d80c-2fa3-a2b7-5e4.ngrok-free.app:3000","https://84.239.48.142:0","https://10.0.0.246:0","2601:8c:4302:45e0:8d1a:45aa:746a:6f77"],  # Adjust this based on your frontend URL
+    allow_origins=["https://d16a-2601-19b-b00-26d0-dd48-21f6-da56-c53a.ngrok-free.app:3000","https://84.239.48.142:0","https://10.0.0.246:0","2601:8c:4302:45e0:8d1a:45aa:746a:6f77"],  # Adjust this based on your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -84,7 +85,6 @@ async def signup(signup_data: UserSignup):
     return "Sucessfully Registered!!! Congrats!"
 
 ########## login
-
 class LoginRequest(BaseModel):
     user: str
     pwd: str
@@ -107,88 +107,73 @@ async def login(login_data: LoginRequest):
 
     return {"access_token": token, "token_type": "bearer", "expires_in": expiration_time, "role": users_db[login_data.user]["role"]}
 
-##########
 
+##########
 # Protected route
+
 @app.get("/protected")
 async def protected_route(current_user: dict = Depends(get_current_user)):
     return {"message": "You have access to this protected route!", "user": current_user}
 
 
-####code for genereting questions from uploaded text
-
-
 # OAuth2PasswordBearer for handling token authentication
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# Your OpenAI API key
-#openai.api_key = "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"
+#Extracting Data from PDF
+def extract_text_from_pdf(reader):
+    text = ""
+    num_pages = len(reader.pages)
+    for page_num in range(num_pages):
+        page = reader.pages[page_num]
+        text += page.extract_text()
+    return text
 
-
-# Route to handle textbook content and generate questions
-@app.post("/generate_questions")
-async def generate_questions(
-    file: UploadFile = File(...),
-    current_user: dict = Depends(get_current_user),
-):
-    # Your code to process the uploaded textbook content
-    # You may want to save the file to a storage system and extract text from it
-    # For simplicity, we'll assume the file contains text
-    content_text = file.file.read().decode("utf-8")
-    print(content_text)
-    # Your OpenAI prompt for question generation
-    prompt = f"Generate questions from the following text:\n{content_text}"
-
-    # Generate questions using OpenAI
-    questions = generate_questions_using_openai(prompt)
-
-    return {"questions": questions}
-
-import asyncio
-
-
-
-async def generate_questions_using_openai(prompt, delay_seconds=2):
-    print("prompt is :" f'{prompt}')
+# models_list = "gpt-3.5-turbo-16k-0613", "gpt-3.5-turbo"
+async def generate_questions_using_openai(prompt,chapter_from, chapter_to, papername, delay_seconds=2):
+    #print("prompt is :" f'{prompt}')
     # Your code to interact with the OpenAI API for question generation
     client = OpenAI(
     # defaults to os.environ.get("OPENAI_API_KEY")
     #Old api_key="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",
     api_key="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"
-)
-    gpt_query = "Give me a list of important questions from this :" + str(prompt)
+)   
+
+    gpt_query = "Give me a list of important questions " + "from chapter"+ str(chapter_from) + "to chapter" + str(chapter_to) +":"+ str((prompt)) # for generating questions
+    print(gpt_query)
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-16k-0613", #"gpt-3.5-turbo",
         messages=[
                 {"role": "user", "content": gpt_query}
         ],
     temperature=0,
     )
     generated_questions = response.choices[0].message.content.strip()
+
     # print(generated_questions)
     return generated_questions
 
 
-class GenerateData(BaseModel):
-    chapterfrom: int
-    chapterto: int
-    papername: str
-    token: str
-
 @app.post("/upload_textbook")
-async def upload_textbook(textbook: UploadFile = File(...)):
+async def upload_textbook(textbook: UploadFile = File(...),chapter_from : int = fastapi.Form(...), chapter_to: int = fastapi.Form(...), papername: str = fastapi.Form(...), token: str = fastapi.Form(...)):
+    '''
+    implement the "token" verification here
+    '''
     # Your code to process the uploaded textbook content
-    content_text = textbook.file.read()#.decode("utf-8")
+    content_pdf = PdfReader(textbook.file)
+    extracted_text = extract_text_from_pdf(content_pdf)
+
     #printing the text book content
-    ##print("TextBook Content is :" f'{content_text}')
+    #print("TextBook Content is :" f'{extracted_text}')
+
     # Your OpenAI prompt for question generation
-    prompt = content_text
+    prompt = extracted_text
 
     # Generate questions using OpenAI with delay
-    questions_result = await generate_questions_using_openai(prompt)
+    questions_result = await generate_questions_using_openai(prompt, chapter_from, chapter_to, papername)
 
     return {"questions": questions_result}    
 
+   
 @app.post("/process_query_data")
 async def process_query_data(request: Request):
     try:
@@ -198,10 +183,10 @@ async def process_query_data(request: Request):
         # Your existing code to process the JSON string
         # ...
 
-        return {"status": "success", "data": data_dict}
+        return {"data": data_dict}
+    
     except json.JSONDecodeError:
-        return {"error": "Invalid JSON format in the provided data_str"}
-
+        return {"error": "Invalid JSON format in the provided data_str"} 
 
 if __name__ == "__main__":
     uvicorn.run('app:app', host="localhost", port=5001, reload=True)
