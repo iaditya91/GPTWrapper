@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import AuthContext from "../../Authentication/context/AuthProvider";
 import "./TopBar.css";
-import Grid from "@material-ui/core/Grid";
+import Grid from '@mui/material/Grid';
 import HomeIcon from "@mui/icons-material/Home";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

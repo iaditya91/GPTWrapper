@@ -8,13 +8,21 @@
 
 html {
     font-family: 'Nunito', sans-serif;
-    font-size: 22px;
+    /* font-size: 22px; */
     color: #fff;
+}
+
+h1 {
+    size: inherit;
+    font-size: 2rem;
+    font-style: inherit;
+    font-weight: inherit;
 }
 
 body {
     min-height: 100vh;
     background-color: rgb(20, 20, 21);
+    color: inherit;
 }
 
 .App {
@@ -29,7 +37,7 @@ body {
 section {
     width: 100%;
     max-width: 420px;
-    min-height: 400px;
+    /* min-height: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

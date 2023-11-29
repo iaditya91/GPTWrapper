@@ -1,14 +1,35 @@
-import React from 'react';
-import { useRef, useState, useEffect, useContext } from 'react';
-import TopBar from '../../DashBoard/Components/TopBar';
+import React from "react";
+import { useRef, useState, useEffect, useContext } from "react";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import TopBar from "../../DashBoard/Components/TopBar";
 
 const QuestionsRepository = () => {
-    return (
-        <>
-        <TopBar/>
-            <h1>QuestionsRepository</h1>
-        </>
-    )
-}
+  const [alignment, setAlignment] = React.useState('paper');
 
-export default QuestionsRepository
+  const handleChange = (
+    event,
+    newAlignment,
+  ) => {
+    setAlignment(newAlignment);
+  };
+
+  return (
+    <>
+    <TopBar/>
+    <ToggleButtonGroup
+      color="primary"
+      value={alignment}
+      exclusive
+      onChange={handleChange}
+      aria-label="Platform"
+    >
+      <ToggleButton value="paper">Paper</ToggleButton>
+      <ToggleButton value="quiz">Quiz</ToggleButton>
+      <ToggleButton value="assignment">Assignment</ToggleButton>
+    </ToggleButtonGroup>
+    </>
+  );
+};
+
+export default QuestionsRepository;
